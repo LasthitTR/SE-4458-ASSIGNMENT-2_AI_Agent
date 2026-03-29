@@ -58,7 +58,7 @@ Test output is saved in `k6-results.txt`.
 
 The 100% error rate during load testing was not caused by a system bottleneck. It was expected because the daily 3-request rate limit on the API Gateway (Ocelot) was triggered as required. In the 20, 50, and 100 VU scenarios, the system returned 429 (Too Many Requests) and JWT Unauthorized responses, which protected backend services from unnecessary load. The architecture fully complies with the required security and throttling rules. In future iterations, adding Redis distributed caching could further optimize load handling at the gateway layer.
 
-## k6 Result Analysis (3-5 Sentences)
+## k6 Result Analysis 
 
 In the test run, the overall average response time was measured at approximately 1290 ms, while p95 was 14710 ms. During the 100-user stress phase, the system managed requests correctly at the Gateway layer and consistently blocked out-of-policy requests. At around 35.34 req/sec throughput, the API and Gateway continued operating together. The high error rate is considered expected because it is caused by business-rule-based rate limiting and authorization checks.
 
