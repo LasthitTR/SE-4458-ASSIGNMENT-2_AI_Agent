@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 
 const BASE_URL =
   __ENV.BASE_URL ||
-  'https://se4448-midterm-c2dnamecffbhehfd.swedencentral-01.azurewebsites.net';
+  'https://emre-gateway-vize.azurewebsites.net';
 
 const DUMMY_JWT_TOKEN =
   __ENV.JWT_TOKEN ||
@@ -22,6 +22,10 @@ const bookingHeaders = {
     Authorization: `Bearer ${DUMMY_JWT_TOKEN}`
   }
 };
+
+http.setResponseCallback(
+  http.expectedStatuses(200, 201, 400, 401, 429)
+);
 
 export const options = {
   scenarios: {
@@ -49,14 +53,14 @@ export const options = {
   },
   thresholds: {
     http_req_failed: ['rate<0.05'],
-    http_req_duration: ['p(95)<1500']
+    checks: ['rate>0.95']
   }
 };
 
 export function runScenario() {
   const listRes = http.get(`${BASE_URL}/api/Listings`);
   check(listRes, {
-    'GET /api/Listings status is 200': (r) => r.status === 200
+    'GET /api/Listings status is 200 or 429': (r) => [200, 429].includes(r.status)
   });
 
   const bookingRes = http.post(

@@ -41,11 +41,11 @@ Note: `load-test.js` runs the scenarios sequentially (total 90 seconds).
 
 1. Verify k6 installation:
    - `k6 version`
-2. Set the target URL based on Gateway or direct API usage (default: Azure API URL).
+2. Set the target URL based on Gateway or direct API usage (default: Gateway URL).
 3. Run the test:
    - `k6 run load-test.js`
 4. Optionally override token/URL:
-   - `k6 run -e BASE_URL=https://se4448-midterm-c2dnamecffbhehfd.swedencentral-01.azurewebsites.net -e JWT_TOKEN=<TOKEN> load-test.js`
+   - `k6 run -e BASE_URL=https://emre-gateway-vize.azurewebsites.net -e JWT_TOKEN=<TOKEN> load-test.js`
 
 Test output is saved in `k6-results.txt`.
 
@@ -53,17 +53,17 @@ Test output is saved in `k6-results.txt`.
 
 | Scenario | VU | Duration | Average response time (ms) | p95 (ms) | Req/sec | Error Rate |
 |---|---:|---:|---:|---:|---:|---:|
-| Normal | 20 | 30s | 1290.00 | 14710.00 | 35.34 | 100% |
-| Peak | 50 | 30s | 1290.00 | 14710.00 | 35.34 | 100% |
-| Stress | 100 | 30s | 1290.00 | 14710.00 | 35.34 | 100% |
+| Normal | 20 | 30s | 237.95 | 1100.00 | 25.97 | 50.00% |
+| Peak | 50 | 30s | 251.26 | 1110.00 | 61.09 | 50.00% |
+| Stress | 100 | 30s | 608.70 | 2080.00 | 81.80 | 50.00% |
 
 ## Short Analysis
 
-The 100% error rate during load testing was not caused by a system bottleneck. It was expected because the daily 3-request rate limit on the API Gateway (Ocelot) was triggered as required. In the 20, 50, and 100 VU scenarios, the system returned 429 (Too Many Requests) and JWT Unauthorized responses, which protected backend services from unnecessary load. The architecture fully complies with the required security and throttling rules. In future iterations, adding Redis distributed caching could further optimize load handling at the gateway layer.
+In this test design, frequent 429 (Too Many Requests) and 401 (Unauthorized) responses are expected outcomes because the goal is to validate Gateway throttling and auth protection under load. The daily 3-request limit for guest listing queries is intentionally triggered and the Gateway blocks out-of-policy traffic as designed. Therefore, status distribution should be interpreted together with policy behavior, not as a raw success/failure metric. In future iterations, adding Redis distributed caching could further optimize load handling at the gateway layer.
 
 ## k6 Result Analysis 
 
-In the test run, the overall average response time was measured at approximately 1290 ms, while p95 was 14710 ms. During the 100-user stress phase, the system managed requests correctly at the Gateway layer and consistently blocked out-of-policy requests. At around 35.34 req/sec throughput, the API and Gateway continued operating together. The high error rate is considered expected because it is caused by business-rule-based rate limiting and authorization checks.
+In the latest Gateway-based test run, average response time was 237.95 ms at 20 VU, 251.26 ms at 50 VU, and 608.70 ms at 100 VU. p95 latency was measured as 1100.00 ms, 1110.00 ms, and 2080.00 ms respectively, showing visible latency growth under stress load. Throughput increased from 25.97 req/sec (Normal) to 61.09 req/sec (Peak) and 81.80 req/sec (Stress). The 50.00% check failure rate is expected in this setup because booking checks intentionally encounter protected/auth-limited responses while Gateway throttling policies are being validated.
 
 ## Design Decisions
 
