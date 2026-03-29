@@ -65,6 +65,11 @@ In this test design, frequent 429 (Too Many Requests) and 401 (Unauthorized) res
 
 In the latest Gateway-based test run, average response time was 237.95 ms at 20 VU, 251.26 ms at 50 VU, and 608.70 ms at 100 VU. p95 latency was measured as 1100.00 ms, 1110.00 ms, and 2080.00 ms respectively, showing visible latency growth under stress load. Throughput increased from 25.97 req/sec (Normal) to 61.09 req/sec (Peak) and 81.80 req/sec (Stress). The 50.00% check failure rate is expected in this setup because booking checks intentionally encounter protected/auth-limited responses while Gateway throttling policies are being validated.
 
+## Assumptions and Issues Encountered
+
+- **Assumptions:** Rate limiting policy applies per client IP. During load testing, receiving 429 (Too Many Requests) or 401 (Unauthorized) status codes is considered a success metric for gateway protection, not a system failure.
+- **Issues Encountered:** Initial k6 scripts bypassed the gateway and hit the downstream API directly. This was resolved by forcing the load test to target the Ocelot Gateway URL.
+
 ## Design Decisions
 
 - No direct database access was done in the controller layer; all business rules were kept in the service layer.

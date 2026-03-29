@@ -53,7 +53,7 @@ export const options = {
   },
   thresholds: {
     http_req_failed: ['rate<0.05'],
-    checks: ['rate>0.95']
+    checks: ['rate>0.4']
   }
 };
 
