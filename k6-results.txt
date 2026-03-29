@@ -1,0 +1,20 @@
+﻿k6 Gateway Load Test Summary
+GeneratedAtUtc: 2026-03-29 15:33:58Z
+BaseUrl: https://emre-gateway-vize.azurewebsites.net
+
+Scenarios:
+- Normal: 20 VU, 30s
+- Peak: 50 VU, 30s
+- Stress: 100 VU, 30s
+
+Overall Metrics:
+- http_reqs_rate: 60.56 req/sec
+- http_req_duration_avg: 421.75 ms
+- http_req_duration_p95: 1448.64 ms
+- checks_pass_rate: 50%
+- checks_fail_rate: 50%
+- http_req_failed_rate: 0%
+
+Check Details:
+- GET /api/Listings status is 200 or 429: pass=2832, fail=0
+- POST /api/Bookings status is 200 or 201 or 400 or 401: pass=0, fail=2832
