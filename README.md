@@ -19,7 +19,7 @@
 - Gateway rate limit policy: Daily limit of 3 requests for guest listing queries (Ocelot)
 - The instructor can directly click this link to verify: https://emre-gateway-vize.azurewebsites.net/api/listings (no extra X-Client-Id header required)
 - If X-Client-Id is not provided, the Gateway automatically assigns a default identity using client IP information, so rate limiting remains active in browser-based access.
-- **Swagger UI:** https://emre-gateway-vize.azurewebsites.net/swagger
+
 ## Tested Endpoints
 
 1. `GET /api/listings`
