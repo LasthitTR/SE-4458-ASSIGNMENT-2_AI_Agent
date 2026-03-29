@@ -51,6 +51,8 @@ Test output is saved in `k6-results.txt`.
 
 ## Result Table
 
+![Load Test Terminal Result](k6-screenshot.png)
+
 | Scenario | VU | Duration | Average response time (ms) | p95 (ms) | Req/sec | Error Rate |
 |---|---:|---:|---:|---:|---:|---:|
 | Normal | 20 | 30s | 237.95 | 1100.00 | 25.97 | 50.00% |
