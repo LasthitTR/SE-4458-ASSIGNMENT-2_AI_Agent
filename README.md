@@ -5,6 +5,9 @@
 - Full Name: Emre Akar
 - Student Number: 21070006213
 
+## Project Video Presentation
+- **▶️ [Watch the Project Presentation Video on Google Drive](https://drive.google.com/file/d/1TC427OCnVqQ3avdEzmFnZEPdtLh7pcyn/view?usp=sharing)**
+
 ---
 
 # AirbnbClone Load Testing Report (k6)
