@@ -16,6 +16,7 @@
 
 - Gateway Web App: https://emre-gateway-vize.azurewebsites.net
 - Downstream API: https://se4448-midterm-c2dnamecffbhehfd.swedencentral-01.azurewebsites.net
+- **Swagger UI:** [https://se4448-midterm-c2dnamecffbhehfd.swedencentral-01.azurewebsites.net/index.html](https://se4448-midterm-c2dnamecffbhehfd.swedencentral-01.azurewebsites.net/index.html)
 - Gateway rate limit policy: Daily limit of 3 requests for guest listing queries (Ocelot)
 - The instructor can directly click this link to verify: https://emre-gateway-vize.azurewebsites.net/api/listings (no extra X-Client-Id header required)
 - If X-Client-Id is not provided, the Gateway automatically assigns a default identity using client IP information, so rate limiting remains active in browser-based access.
@@ -77,6 +78,7 @@ In the latest Gateway-based test run, average response time was 237.95 ms at 20 
 - No direct database access was done in the controller layer; all business rules were kept in the service layer.
 - Centralized routing and rate limiting were implemented in the gateway layer using Ocelot.
 - Swagger was kept enabled in production to simplify operational testing and observability.
+- Note: Swagger UI is hosted on the Downstream API service to ensure stable documentation access, while all functional API traffic is routed and rate-limited through the Ocelot Gateway.
 - Azure App Service startup command was configured to run the DLL directly for consistent host startup behavior.
 
 
