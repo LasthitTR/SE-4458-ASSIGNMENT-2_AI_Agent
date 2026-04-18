@@ -9,7 +9,7 @@
 - **GitHub:** https://github.com/LasthitTR/SE-4458-ASSIGNMENT-2_AI_Agent
 
 ## Project Video Presentation
-- **▶️ [Watch the Project Presentation Video on Google Drive](https://drive.google.com/file/d/1TC427OCnVqQ3avdEzmFnZEPdtLh7pcyn/view?usp=sharing)**
+- **▶️ [Watch the Project Presentation Video on Google Drive]()**
 
 ---
 
