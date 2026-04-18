@@ -135,7 +135,7 @@ public class ListingService : IListingService
 
         var totalCount = await listingQuery.CountAsync(cancellationToken);
 
-        var items = await listingQuery
+        var materializedItems = await listingQuery
             .OrderByDescending(x => x.CreatedAtUtc)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
@@ -158,7 +158,7 @@ public class ListingService : IListingService
 
         return new PagedResultDTO<ListingResponseDTO>
         {
-            Items = items,
+            Items = materializedItems,
             PageNumber = pageNumber,
             PageSize = pageSize,
             TotalCount = totalCount

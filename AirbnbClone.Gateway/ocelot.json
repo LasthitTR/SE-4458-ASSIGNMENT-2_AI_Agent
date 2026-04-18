@@ -15,9 +15,9 @@
         "EnableRateLimiting": true,
         "Period": "1d",
         "PeriodTimespan": 1,
-        "Limit": 3
+        "Limit": 100
       },
-      "Priority": 0
+      "Priority": 2
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
